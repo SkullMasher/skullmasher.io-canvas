@@ -1,6 +1,15 @@
 @import "knacss.scss";
 
+header {
+  padding-top: 50px;
+}
+
 .box {
   max-width: 800px;
   margin: 0 auto;
+}
+
+#canvas {
+  background-color: #fff;
+  margin-top: 50px;
 }
