@@ -26,9 +26,16 @@ document.addEventListener('DOMContentLoaded', function (event) {
   c.fillRect((spacing * 4) + (squareD * 3), 50, squareD, squareD)
 
   c.fillStyle = rectMainColor
-  for (var i = 1; i < 50; i++) {
-    var x = (spacing * i) + (squareD * (i - 1))
-    var y = spacing
+  // Create a line of squares
+  var i = 1
+  var x = 0
+  var y = spacing
+  while (x < canvas.width) {
+    x = (spacing * i) + (squareD * (i - 1))
+    y = spacing
     c.fillRect(x, y, squareD, squareD)
+
+    i++
   }
+  console.log(i)
 })
