@@ -67,7 +67,7 @@ addEventListener('DOMContentLoaded', (event) => {
     let y = squares[getRandomIntFromRange(0, squares.length)].y
     ctx.clearRect(x, y, squareD, squareD)
     ctx.fillStyle = 'rgba(68,163,64,' + opacity + ')'
-    if (opacity > 1 || opacity < 0) {
+    if (opacity > 0.3 || opacity < 0) {
       opacityAccel = -opacityAccel
     }
     opacity += opacityAccel
