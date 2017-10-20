@@ -15,7 +15,7 @@ addEventListener('DOMContentLoaded', (event) => {
   const ctx = canvas.getContext('2d', {alpha: true})
 
   // Colors
-  const rectColor = '#262626'
+  const rectColor = 'rgba(38,38,38,1)'
   // const rectHighlight = 'rgba(68,163,64,1)'
 
   // Square Dimension
@@ -42,7 +42,7 @@ addEventListener('DOMContentLoaded', (event) => {
     let y = squares[getRandomIntFromRange(0, squares.length)].y
     ctx.clearRect(x, y, squareD, squareD)
     ctx.fillStyle = 'rgba(68,163,64,' + opacity + ')'
-    if (opacity > 0.3 || opacity < 0) {
+    if (opacity > 1 || opacity < 0) {
       opacityAccel = -opacityAccel
     }
     opacity += opacityAccel
@@ -90,7 +90,7 @@ addEventListener('DOMContentLoaded', (event) => {
   fillCanvas()
 
   // Animaiton
-  let opacity = 0
+  let opacity = 0.2
   let opacityAccel = 0.01
   let squareIsBreathing = false
   let randomSquare = {}
@@ -100,25 +100,23 @@ addEventListener('DOMContentLoaded', (event) => {
     // Get a rectangle
     if (!squareIsBreathing) {
       randomSquare = getRandomSquare()
-      ctx.clearRect(randomSquare.x, randomSquare.y, squareD, squareD)
       squareIsBreathing = true
-      // console.log(randomSquare)
     }
+    ctx.clearRect(randomSquare.x, randomSquare.y, squareD, squareD)
 
-    if (opacity >= 1) {
+    opacity += opacityAccel
+    ctx.fillStyle = `rgba(68,163,64,${opacity})`
+    ctx.fillRect(randomSquare.x, randomSquare.y, squareD, squareD)
+
+    if (opacity > 1) {
       opacityAccel = -opacityAccel
-    } else if (opacity < 0) {
+    } else if (opacity < 0.2) {
       // breathing cycle complete
       ctx.fillStyle = rectColor
       ctx.fillRect(randomSquare.x, randomSquare.y, squareD, squareD)
       squareIsBreathing = false
       opacityAccel = -opacityAccel
     }
-
-    opacity += opacityAccel
-    ctx.fillStyle = 'rgba(68,163,64,' + opacity + ')'
-    ctx.fillRect(randomSquare.x, randomSquare.y, squareD, squareD)
-    // console.log(opacity)
   }
   animate()
 })
