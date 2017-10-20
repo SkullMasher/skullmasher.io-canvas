@@ -52,6 +52,11 @@ addEventListener('DOMContentLoaded', (event) => {
   // Fill the canvas with squares
   const squares = []
 
+  const getRandomSquare = () => {
+    const squaresLength = squares.length
+    return squares[getRandomIntFromRange(0, squaresLength)]
+  }
+
   let fillCanvas = () => {
     let i, j, x, y, square
     j = i = 1
@@ -82,22 +87,38 @@ addEventListener('DOMContentLoaded', (event) => {
       square.draw()
     })
   }
-  // fillCanvas()
+  fillCanvas()
 
   // Animaiton
   let opacity = 0
-  let opacityAccel = 0.02
+  let opacityAccel = 0.01
+  let squareIsBreathing = false
+  let randomSquare = {}
 
   let animate = () => {
     requestAnimationFrame(animate)
-    ctx.clearRect(150, 150, canvas.width, canvas.height)
+    // Get a rectangle
+    if (!squareIsBreathing) {
+      randomSquare = getRandomSquare()
+      ctx.clearRect(randomSquare.x, randomSquare.y, squareD, squareD)
+      squareIsBreathing = true
+      // console.log(randomSquare)
+    }
 
-    if (opacity > 1 || opacity < 0) {
+    if (opacity >= 1) {
+      opacityAccel = -opacityAccel
+    } else if (opacity < 0) {
+      // breathing cycle complete
+      ctx.fillStyle = rectColor
+      ctx.fillRect(randomSquare.x, randomSquare.y, squareD, squareD)
+      squareIsBreathing = false
       opacityAccel = -opacityAccel
     }
+
     opacity += opacityAccel
     ctx.fillStyle = 'rgba(68,163,64,' + opacity + ')'
-    ctx.fillRect(150, 150, squareD, squareD)
+    ctx.fillRect(randomSquare.x, randomSquare.y, squareD, squareD)
+    // console.log(opacity)
   }
   animate()
 })
