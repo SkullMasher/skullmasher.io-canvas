@@ -8,28 +8,18 @@
     }
     this.age = age
     this.interests = interests
-    // this.bio = () => {
-    //   return `${this.name.nickname} (${this.name.first} ${this.name.last}) à ${this.age}ans et est intéréssé par ${this.interests}`
-    // }
-    // this.'greet' = () => {
-    //   return `Hello there ! C'est ${this.nickname}`
-    // }
   }
 
   Person.prototype.bio = function () {
-    console.log(this.name.first)
+    return `${this.name.nickname} (${this.name.first} ${this.name.last}) à ${this.age}ans et est intéréssé par ${this.interests}`
   }
   Person.prototype.greet = function () {
-    return `Hello There ! C'est ${this.nickname}`
-  }
-
-  Person.prototype.farewell = function () {
-    console.log(this.name.first + ' has left the building. Bye for now!')
+    return `Hello There ! C'est ${this.name.nickname}`
   }
 
   const para = document.getElementById('training-zone')
-  let Skull = new Person('Florian', 'Ledru', 'Skullmasher', 25, 'l\'informatique, les FPS')
-  let Neko = new Person('Mathilde', 'Couvreur', 'Neko', 22, 'le Japon, les MEUPORG')
+  let Skull = new Person('Florian', 'Ledru', 'Skullmasher', 25, 'l\'informatique et les FPS')
+  let Neko = new Person('Mathilde', 'Couvreur', 'Neko', 22, 'le Japon et les MEUPORG')
 
-  para.innerHTML = `${Skull.bio()} <br> ${Neko.bio()}`
+  // para.innerHTML = `${Skull.bio()} <br> ${Neko.bio()}`
 // })

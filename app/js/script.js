@@ -24,10 +24,36 @@ addEventListener('DOMContentLoaded', (event) => {
   // spacing beetween squares
   const spacing = 2
 
+  function Square (x, y) {
+    this.x = x
+    this.y = y
+  }
+
+  Square.prototype.draw = function () {
+    ctx.fillRect(this.x, this.y, squareD, squareD)
+  }
+
+  Square.prototype.breath = function() {
+    // Make a rectangle breath
+    let opacity = 0
+    let opacityAccel = 0.01
+    // Get a random square
+    let x = squares[getRandomIntFromRange(0, squares.length)].x
+    let y = squares[getRandomIntFromRange(0, squares.length)].y
+    ctx.clearRect(x, y, squareD, squareD)
+    ctx.fillStyle = 'rgba(68,163,64,' + opacity + ')'
+    if (opacity > 0.3 || opacity < 0) {
+      opacityAccel = -opacityAccel
+    }
+    opacity += opacityAccel
+    ctx.fillRect(x, y, squareD, squareD)
+  }
+
   // Fill the canvas with squares
   const squares = []
+
   let fillCanvas = () => {
-    let i, j, x, y
+    let i, j, x, y, square
     j = i = 1
     x = y = 0
 
@@ -52,26 +78,26 @@ addEventListener('DOMContentLoaded', (event) => {
 
     // Draw all the rectangle
     squares.forEach((sqr) => {
-      ctx.fillRect(sqr.x, sqr.y, squareD, squareD)
+      square = new Square(sqr.x, sqr.y)
+      square.draw()
     })
   }
-  fillCanvas()
+  // fillCanvas()
 
-  // Make a rectangle breath
+  // Animaiton
   let opacity = 0
-  let opacityAccel = 0.01
-  let breathAnimation = () => {
-    requestAnimationFrame(breathAnimation)
-    // Choose a random rectangle
-    let x = squares[getRandomIntFromRange(0, squares.length)].x
-    let y = squares[getRandomIntFromRange(0, squares.length)].y
-    ctx.clearRect(x, y, squareD, squareD)
-    ctx.fillStyle = 'rgba(68,163,64,' + opacity + ')'
-    if (opacity > 0.3 || opacity < 0) {
+  let opacityAccel = 0.02
+
+  let animate = () => {
+    requestAnimationFrame(animate)
+    ctx.clearRect(150, 150, canvas.width, canvas.height)
+
+    if (opacity > 1 || opacity < 0) {
       opacityAccel = -opacityAccel
     }
     opacity += opacityAccel
-    ctx.fillRect(x, y, squareD, squareD)
+    ctx.fillStyle = 'rgba(68,163,64,' + opacity + ')'
+    ctx.fillRect(150, 150, squareD, squareD)
   }
-  breathAnimation()
+  animate()
 })
